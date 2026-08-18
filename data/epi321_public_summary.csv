@@ -1,0 +1,7 @@
+finding,system,assay,value,unit,source
+Detailed donor panel,FSHD patient-derived primary myoblasts,Multimodal in-vitro panel,6,donors,https://epicrispr.com/wp-content/uploads/2024/11/WMS2024-Poster_Landscape_Final.pdf
+Wider potency panel,FSHD patient-derived myoblasts,RT-qPCR,10,cell lines,https://epicrispr.com/wp-content/uploads/2024/11/WMS2024-Poster_Landscape_Final.pdf
+DUX4 suppression,FSHD patient-derived myoblasts,RT-qPCR,>50,percent,https://epicrispr.com/wp-content/uploads/2024/11/WMS2024-Poster_Landscape_Final.pdf
+D4Z4 remethylation,FSHD patient-derived primary myoblasts,Targeted methylation NGS,8.5,percentage-point increase,https://epicrispr.com/wp-content/uploads/2024/11/WMS2024-Poster_Landscape_Final.pdf
+Apoptosis rescue,FSHD patient-derived primary myoblasts,Longitudinal Caspase 3/7 imaging,25,percent AUC reduction,https://epicrispr.com/wp-content/uploads/2024/11/WMS2024-Poster_Landscape_Final.pdf
+Engineered muscle experiment,Patient-derived 3D muscle tissue,Twitch and tetanic force,46,days,https://epicrispr.com/wp-content/uploads/2024/11/WMS2024-Poster_Landscape_Final.pdf
