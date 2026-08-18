@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A role-specific in vitro pharmacology notebook built by Cathy Liu for Epicrispr Biotechnologies.">
+  <title>When does an epigenetic edit become a pharmacology result?</title>
+  <link rel="stylesheet" href="styles.css?v=20260818a">
+</head>
+<body>
+  <header class="masthead">
+    <a class="wordmark" href="#top">Cathy Liu / research note</a>
+    <a class="quiet-link" href="mailto:cathyliu014@gmail.com">Contact</a>
+  </header>
+
+  <main id="top">
+    <article>
+      <p class="eyebrow">18 August 2026 · Epicrispr Biotechnologies</p>
+      <h1>When does an epigenetic edit become a pharmacology result?</h1>
+      <p class="dek">A small notebook for connecting AAV delivery, locus remethylation, DUX4 suppression, and muscle-cell rescue.</p>
+      <p class="byline">Built by Cathy Liu for the Research Associate II / Senior Research Associate, In Vitro Pharmacology position</p>
+
+      <nav class="section-nav" aria-label="Article sections">
+        <a href="#chain">Evidence chain</a>
+        <a href="#design">Study design</a>
+        <a href="#timeline">Assay timing</a>
+        <a href="#evidence">Public data</a>
+      </nav>
+
+      <section class="lead">
+        <p>Epicrispr’s EPI-321 program asks more than whether an editor reaches a cell. The full claim depends on a linked series of observations: AAV delivery, expression of the compact dCas cargo, remethylation at D4Z4, suppression of DUX4 and its downstream genes, lower apoptosis, and recovery of engineered-muscle function.</p>
+        <p class="method-callout"><strong>I built this notebook to keep that causal chain visible.</strong> It separates measured public findings from adjustable planning thresholds, then shows which experiment should come next when delivery, mechanism, transcript, and phenotype disagree.</p>
+      </section>
+
+      <section id="chain">
+        <p class="section-number">01</p>
+        <h2>Test the complete mechanism chain</h2>
+        <p>Change the observed values or try a failure pattern. The public-summary preset uses the reported methylation and apoptosis values, the published DUX4 lower bound, and an illustrative delivery value. All pass windows are planning gates, not Epicrispr specifications.</p>
+
+        <div class="interaction-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="small-label">Current interpretation</p>
+              <h3 id="chain-status">Mechanism chain is coherent</h3>
+            </div>
+            <span id="chain-badge" class="status-badge pass">Advance</span>
+          </div>
+
+          <div class="preset-row" aria-label="Evidence presets">
+            <span>Try a pattern</span>
+            <button type="button" data-preset="public" class="active">Public-summary anchored</button>
+            <button type="button" data-preset="delivery">Delivery shortfall</button>
+            <button type="button" data-preset="mechanism">Mechanism mismatch</button>
+            <button type="button" data-preset="phenotype">Phenotype lag</button>
+          </div>
+
+          <div id="evidence-chain" class="chain" aria-live="polite">
+            <div class="chain-step" data-step="delivery">
+              <span class="step-index">1</span>
+              <p class="small-label">Delivery</p>
+              <strong>dPCR</strong>
+              <label>Illustrative vector genomes / diploid genome<input id="delivery-input" type="number" min="0" step="0.5" value="12"></label>
+              <p class="gate-note">Planning gate ≥ 5</p>
+            </div>
+            <div class="chain-step" data-step="chromatin">
+              <span class="step-index">2</span>
+              <p class="small-label">Chromatin</p>
+              <strong>Targeted methylation NGS</strong>
+              <label>D4Z4 methylation change<input id="methylation-input" type="number" step="0.1" value="8.5"><span>percentage points</span></label>
+              <p class="gate-note">Planning gate ≥ 5 points</p>
+            </div>
+            <div class="chain-step" data-step="transcript">
+              <span class="step-index">3</span>
+              <p class="small-label">Transcript</p>
+              <strong>RT-qPCR</strong>
+              <label>DUX4 suppression (reported lower bound)<input id="dux4-input" type="number" min="0" max="100" step="1" value="50"><span>%</span></label>
+              <p class="gate-note">Planning gate ≥ 50%</p>
+            </div>
+            <div class="chain-step" data-step="phenotype">
+              <span class="step-index">4</span>
+              <p class="small-label">Phenotype</p>
+              <strong>Caspase 3/7 imaging</strong>
+              <label>Apoptosis AUC reduction<input id="apoptosis-input" type="number" min="-100" max="100" step="1" value="25"><span>%</span></label>
+              <p class="gate-note">Planning gate ≥ 20%</p>
+            </div>
+          </div>
+
+          <div class="metric-strip">
+            <div><span>Stages passed</span><strong id="stages-passed">4 / 4</strong></div>
+            <div><span>First weak link</span><strong id="weak-link">None</strong></div>
+            <div><span>Next experiment</span><strong id="next-experiment">Durability</strong></div>
+          </div>
+          <p id="chain-action" class="result-line">Carry the candidate into a longer time course and verify that D4Z4 methylation, DUX4 suppression, and the phenotype remain aligned.</p>
+        </div>
+      </section>
+
+      <section id="design">
+        <p class="section-number">02</p>
+        <h2>Build a donor-balanced myoblast study</h2>
+        <p>Primary FSHD myoblasts are heterogeneous, so donor coverage and the number of destructive endpoints need to be planned together. This calculator turns a biological question into culture, plate, cell, and assay requirements.</p>
+
+        <div class="interaction-panel">
+          <div class="controls-grid">
+            <label>Patient-derived donors
+              <span><input id="donor-count" type="number" min="1" max="12" step="1" value="6"></span>
+            </label>
+            <label>EPI-321 dose levels
+              <span><input id="dose-count" type="number" min="2" max="8" step="1" value="4"></span>
+            </label>
+            <label>Control conditions
+              <span><input id="control-count" type="number" min="1" max="4" step="1" value="2"></span>
+            </label>
+            <label>Replicates / condition
+              <span><input id="replicate-count" type="number" min="1" max="4" step="1" value="3"></span>
+            </label>
+            <label>Destructive timepoints
+              <span><input id="timepoint-count" type="number" min="1" max="5" step="1" value="1"></span>
+            </label>
+            <label>Cells seeded / well
+              <span><input id="cells-per-well" type="number" min="5000" max="150000" step="5000" value="40000"></span>
+            </label>
+          </div>
+
+          <fieldset>
+            <legend>Molecular readouts at each destructive timepoint</legend>
+            <label class="check-row"><input type="checkbox" class="readout-choice" value="dPCR" checked> dPCR <span>AAV vector genomes</span></label>
+            <label class="check-row"><input type="checkbox" class="readout-choice" value="RT-qPCR" checked> RT-qPCR <span>dCasONYX, DUX4, six downstream genes</span></label>
+            <label class="check-row"><input type="checkbox" class="readout-choice" value="methylation" checked> Targeted methylation NGS <span>D4Z4 mechanism</span></label>
+            <label class="check-row"><input type="checkbox" class="readout-choice" value="protein"> Protein / immunofluorescence <span>DUX4-pathway confirmation</span></label>
+          </fieldset>
+
+          <div class="metric-strip four">
+            <div><span>Culture wells</span><strong id="culture-wells">108</strong></div>
+            <div><span>96-well plates</span><strong id="culture-plates">2</strong></div>
+            <div><span>Cells required</span><strong id="cells-required">4.3 M</strong></div>
+            <div><span>Molecular measurements</span><strong id="measurement-count">324</strong></div>
+          </div>
+
+          <div class="design-note">
+            <p class="small-label">Design interpretation</p>
+            <p id="design-interpretation">Six donors preserve the donor breadth in Epicrispr’s detailed public in-vitro panel. Two controls can hold vehicle and a non-targeting editor while four doses estimate potency.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="timeline">
+        <p class="section-number">03</p>
+        <h2>Put each readout where it can explain the next one</h2>
+        <p>A later phenotype is hard to interpret without earlier delivery and mechanism measurements. Select a failure to see the smallest useful follow-up.</p>
+
+        <div class="timeline" role="list">
+          <button type="button" class="timeline-step active" data-timeline="delivery" role="listitem">
+            <span>Day 0–2</span><strong>AAV delivery</strong><em>dPCR vector genomes</em>
+          </button>
+          <button type="button" class="timeline-step" data-timeline="cargo" role="listitem">
+            <span>Day 2–3</span><strong>Cargo expression</strong><em>RT-qPCR dCasONYX</em>
+          </button>
+          <button type="button" class="timeline-step" data-timeline="mechanism" role="listitem">
+            <span>Day 7</span><strong>D4Z4 remethylation</strong><em>Targeted methylation NGS</em>
+          </button>
+          <button type="button" class="timeline-step" data-timeline="transcript" role="listitem">
+            <span>Day 7+</span><strong>DUX4 pathway</strong><em>RT-qPCR / protein</em>
+          </button>
+          <button type="button" class="timeline-step" data-timeline="function" role="listitem">
+            <span>Through day 46</span><strong>Muscle rescue</strong><em>Caspase imaging + force</em>
+          </button>
+        </div>
+        <aside class="finding">
+          <p class="small-label" id="timeline-label">If delivery is weak</p>
+          <p id="timeline-action">Repeat vector-genome dPCR alongside dCasONYX RT-qPCR. If both are low, optimize AAV exposure or cell state before interpreting DUX4.</p>
+        </aside>
+      </section>
+
+      <section id="evidence">
+        <p class="section-number">04</p>
+        <h2>The measured public evidence</h2>
+        <p>Epicrispr’s 2024 poster provides a compact pharmacology story across primary and engineered FSHD muscle systems.</p>
+
+        <div class="evidence-table" role="table" aria-label="Epicrispr EPI-321 public evidence">
+          <div class="evidence-row header" role="row"><span>Question</span><span>System / assay</span><span>Reported finding</span></div>
+          <div class="evidence-row" role="row"><span>Donor breadth</span><span>Patient-derived primary myoblasts</span><span>Detailed molecular and apoptosis panels used six donors.</span></div>
+          <div class="evidence-row" role="row"><span>Potency</span><span>RT-qPCR across FSHD lines</span><span>DUX4 suppression exceeded 50% in 10 patient-derived myoblast lines.</span></div>
+          <div class="evidence-row" role="row"><span>Mechanism</span><span>Targeted methylation NGS</span><span>D4Z4 methylation increased by 8.5 percentage points at the day-7 endpoint.</span></div>
+          <div class="evidence-row" role="row"><span>Cell rescue</span><span>Longitudinal Caspase 3/7 imaging</span><span>Apoptosis area under the curve decreased by 25%.</span></div>
+          <div class="evidence-row" role="row"><span>Tissue function</span><span>Patient-derived 3D muscle</span><span>Twitch and tetanic force improved over a 46-day experiment.</span></div>
+        </div>
+
+        <aside class="finding conclusion">
+          <p class="small-label">The practical inference</p>
+          <p>The strongest candidate is not simply the one with the lowest DUX4 value. It is the one whose delivery, chromatin change, transcript response, cell survival, and muscle function remain consistent across donors and time.</p>
+        </aside>
+      </section>
+
+      <section>
+        <h2>Why this fits the position</h2>
+        <p>The role asks for disease-relevant mammalian, primary-cell, and iPSC-derived assays; qPCR, RT-qPCR, dPCR, Western blot, ELISA, flow, imaging, and NGS; and experiments that establish potency, durability, specificity, and mechanism. This notebook turns those responsibilities into one interpretable experiment rather than a list of disconnected readouts.</p>
+
+        <h2>What I would bring</h2>
+        <p>I have practical experience with mammalian cell culture, RNA extraction, qPCR, ELISA, Western blotting, flow cytometry, fluorescence microscopy, and structured experimental documentation, together with Python and R analysis. I would bring that combination to careful assay execution, fast troubleshooting, and clear interpretation of multi-readout pharmacology studies.</p>
+      </section>
+
+      <section class="methods">
+        <h2>Methods, limits, and sources</h2>
+        <p>Measured values are transcribed from Epicrispr’s public 2024 WMS and ESGCT EPI-321 posters. The default evidence preset uses public cohort summaries, not raw individual-level data. All pass thresholds, alternative failure scenarios, plate calculations, and recommended follow-ups are illustrative planning aids rather than Epicrispr data or SOPs. No proprietary information is used.</p>
+        <ol>
+          <li><a href="https://epicrispr.com/wp-content/uploads/2024/11/WMS2024-Poster_Landscape_Final.pdf" target="_blank" rel="noreferrer">Boregowda S.V. et al. Efficacy and safety of EPI-321 targeting D4Z4 in FSHD. WMS 2024.</a></li>
+          <li><a href="https://epicrispr.com/wp-content/uploads/2024/11/ESGCT-2024-Poster_Landscape_AA.pdf" target="_blank" rel="noreferrer">Adhikari A. et al. Preclinical in-vitro and ex-vivo evaluation of EPI-321. ESGCT 2024.</a></li>
+          <li><a href="https://epicrispr.com/science/" target="_blank" rel="noreferrer">Epicrispr GEMS science and publication archive.</a></li>
+          <li><a href="https://job-boards.greenhouse.io/epicbio/jobs/6018775004" target="_blank" rel="noreferrer">Official Research Associate II / Senior Research Associate job description.</a></li>
+        </ol>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <p>Cathy Liu · University of Melbourne</p>
+    <p><a href="mailto:cathyliu014@gmail.com">cathyliu014@gmail.com</a> · <a href="tel:+14152163799">415-216-3799</a></p>
+  </footer>
+
+  <script src="data.js?v=20260818a"></script>
+  <script src="app.js?v=20260818a"></script>
+</body>
+</html>
